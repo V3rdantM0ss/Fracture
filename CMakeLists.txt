@@ -5,7 +5,7 @@ include(FetchContent)
 FetchContent_Declare(
 		Hollow
 		GIT_REPOSITORY https://github.com/V3rdantM0ss/Hollow.git
-		GIT_TAG 0.1.1.0
+		GIT_TAG 0.1.3.0
 		GIT_SHALLOW ON
 		EXCLUDE_FROM_ALL
 		SYSTEM

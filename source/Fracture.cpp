@@ -12,7 +12,7 @@
 #include <SFML/Graphics.hpp>
 
 namespace fracture {
-	const hollow::Version fractureVersion(0, 1, 0, 0, hollow::ReleaseType::STABLE);
+	const hollow::Version fractureVersion(0, 1, 0, 1, hollow::ReleaseType::ALPHA);
 	const hollow::Color fractureColor(240, 255, 0);
 	const std::string fractureName = "Fracture";
 	const hollow::Hollow fractureHollow(fractureVersion, fractureName, fractureColor);
@@ -62,7 +62,7 @@ namespace fracture {
 			return;
 		fractureAurora.info("Stopping Fracture engine...");
 		isRunning = false;
-		for (auto& logic : logicComponents) {
+		for (const auto& logic : logicComponents) {
 			logic->shutdown();
 		}
 	}
@@ -79,7 +79,7 @@ namespace fracture {
 			while (const std::optional<sf::Event> event = fractureWindow.pollEvent()) {
 				if (event->is<sf::Event::Closed>()) {
 					fractureWindow.close();
-					isRunning = false;
+					stop();
 				}
 			}
 			auto currentTime = std::chrono::high_resolution_clock::now();
@@ -105,7 +105,7 @@ namespace fracture {
 			fractureWindow.display();
 			frames++;
 			while (deltaSeconds >= 1) {
-				fractureAurora.debug("UPS: " + std::to_string(updates) + " FPS: " + std::to_string(frames));
+				fractureAurora.trace("UPS: " + std::to_string(updates) + " FPS: " + std::to_string(frames));
 				updates = 0;
 				frames = 0;
 				deltaSeconds--;
